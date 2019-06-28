@@ -14,51 +14,74 @@ public class Graphic
 {
     private boolean busy;
     private int tmpId;
+    private int layerCursor;
+    private int layersAmount;
     private HashMap<String, Bitmap> bitmaps;
-    private List<DrawableObject> objects;
+    private List<List<DrawableObject>> objects;
     private Context context;
     private Bitmap tmpBitmap;
     private DrawableObject tmpObject;
 
-    Graphic(Context context)
+    Graphic(Context context, int layersAmount)
     {
         this.bitmaps = new HashMap<>();
         this.objects = new ArrayList<>();
         this.context = context;
-    }
+        this.layersAmount = layersAmount;
 
-    private void loadBitmap(DrawableObject object)
-    {
-        if (!bitmaps.containsKey(object.drawable))
+        for (int i = 0; i < layersAmount; i++)
         {
-            tmpId = context.getResources().getIdentifier(
-                    object.drawable,
-                    Paths.DRAWABLE.toString(),
-                    context.getPackageName()
-
-            );
-
-            tmpBitmap = BitmapFactory.decodeResource(context.getResources(), tmpId);
-
-            tmpBitmap = Bitmap.createScaledBitmap(
-                    tmpBitmap,
-                    object.width,
-                    object.height,
-                    false
-            );
-
-            bitmaps.put(object.drawable, tmpBitmap);
-
+            objects.add(new ArrayList<DrawableObject>());
         }
+
     }
 
-    public boolean pushBack(DrawableObject object)
+    private void loadBitmap(DrawableObject object) throws Exception
+    {
+        if (bitmaps.containsKey(object.drawable)) throw new Exception(Errors.BITMAPEXIST.value);
+
+        tmpId = context.getResources().getIdentifier(
+                object.drawable,
+                Paths.DRAWABLE.toString(),
+                context.getPackageName()
+
+        );
+
+        tmpBitmap = BitmapFactory.decodeResource(context.getResources(), tmpId);
+
+        tmpBitmap = Bitmap.createScaledBitmap(
+                tmpBitmap,
+                object.width,
+                object.height,
+                false
+        );
+
+        bitmaps.put(object.drawable, tmpBitmap);
+
+
+    }
+
+    private boolean setLayerCursor()
+    {
+        layerCursor = 0;
+        while (layerCursor < layersAmount)
+        {
+            if (objects.get(layerCursor).size() > 0)
+                return true;
+
+            layerCursor++;
+        }
+
+        return false;
+    }
+
+    public boolean pushBack(DrawableObject object) throws Exception
     {
         if (!busy)
         {
             busy = true;
             loadBitmap(object);
-            objects.add(object);
+            objects.get(object.layerId).add(object);
             busy = false;
             return true;
         }
@@ -71,9 +94,16 @@ public class Graphic
         if (!busy)
         {
             busy = true;
-            tmpObject = objects.get(0);
+            if (setLayerCursor())
+            {
+                tmpObject = objects.get(layerCursor).get(0);
+                busy = false;
+                return tmpObject;
+            }
+
             busy = false;
-            return tmpObject;
+            return null;
+
         }
 
         return null;
@@ -81,11 +111,18 @@ public class Graphic
 
     public boolean pop()
     {
-        if(!busy){
+        if (!busy)
+        {
             busy = true;
-            objects.remove(0);
+            if (setLayerCursor())
+            {
+                objects.get(layerCursor).remove(0);
+                busy = false;
+                return true;
+            }
+
             busy = false;
-            return true;
+            return false;
         }
 
         return false;
@@ -93,7 +130,8 @@ public class Graphic
 
     public Bitmap getBitmap(DrawableObject object)
     {
-        if(!busy){
+        if (!busy)
+        {
             busy = true;
             tmpBitmap = bitmaps.get(object.drawable);
             busy = false;

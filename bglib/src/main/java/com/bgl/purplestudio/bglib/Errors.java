@@ -2,7 +2,8 @@ package com.bgl.purplestudio.bglib;
 
 public enum Errors {
     WIDTHSCALE("widthScale is bigger than one"),
-    DIMENSIONSCOMPARE("screenHeight is smaller than screenWidth");
+    DIMENSIONSCOMPARE("screenHeight is smaller than screenWidth"),
+    BITMAPEXIST("Bitmap with that name alredy exist");
 
     public String value;
 
