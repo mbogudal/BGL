@@ -3,9 +3,9 @@ package com.bgl.purplestudio.bglib;
 public class AppView {
     public int height;
     public int width;
-    private int screenHeight;
-    private int screenWidth;
-    private double widthScale;
+    public int screenHeight;
+    public int screenWidth;
+    public double widthScale;
 
     AppView(int screenHeight, int screenWidth)
     {
@@ -27,8 +27,8 @@ public class AppView {
     public void configure(double widthScale) throws Exception
     {
 
-        if(widthScale > 1) throw new Exception(Errors.WIDTHSCALE.getError());
-        if(screenHeight < screenWidth) throw  new Exception(Errors.DIMENSIONSCOMPARE.getError());
+        if(widthScale > 1) throw new Exception(Errors.WIDTHSCALE.value);
+        if(screenHeight < screenWidth) throw  new Exception(Errors.DIMENSIONSCOMPARE.value);
 
         this.widthScale = widthScale;
 

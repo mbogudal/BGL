@@ -4,14 +4,11 @@ public enum Errors {
     WIDTHSCALE("widthScale is bigger than one"),
     DIMENSIONSCOMPARE("screenHeight is smaller than screenWidth");
 
-    private String content;
+    public String value;
 
-    Errors(String content)
+    Errors(String value)
     {
-        this.content = content;
+        this.value = value;
     }
 
-    public String getError(){
-        return content;
-    }
 }

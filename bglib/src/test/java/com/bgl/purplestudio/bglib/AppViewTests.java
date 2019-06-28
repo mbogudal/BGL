@@ -15,7 +15,7 @@ public class AppViewTests {
         try {
             v1.configure(2);}
             catch (Exception e){
-                if(e.getMessage().equals(Errors.WIDTHSCALE.getError()))
+                if(e.getMessage().equals(Errors.WIDTHSCALE.value))
                     System.out.println("v1 ok");
                 else
                     System.out.println(e);
@@ -30,7 +30,7 @@ public class AppViewTests {
         try{
             v3.configure(0.75);
         }catch (Exception e){
-            if(e.getMessage().equals(Errors.DIMENSIONSCOMPARE.getError()))
+            if(e.getMessage().equals(Errors.DIMENSIONSCOMPARE.value))
                 System.out.println("v3 ok");
             else
                 System.out.println(e);
