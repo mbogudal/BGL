@@ -14,7 +14,7 @@ public class Transaction1
     @Test
     public void test() throws Exception
     {
-        int objects = 1000000;
+        int objects = 500000;
         graphic = new Graphic(InstrumentationRegistry.getTargetContext(), 1);
         Runnable r1 = new Thread1(graphic, objects);
         Runnable r2 = new Thread2(graphic, objects);

@@ -124,12 +124,16 @@ public class Graphic
         return false;
     }
 
-    public Bitmap getBitmap(DrawableObject object)
+    public Bitmap getBitmap(DrawableObject object, Object acquirer)
     {
-        acquire();
-        tmpBitmap = bitmaps.get(object.drawable);
-        mutex.release();
-        return tmpBitmap;
+        if(this.acquirer == acquirer)
+        {
+            tmpBitmap = bitmaps.get(object.drawable);
+            mutex.release();
+            return tmpBitmap;
+        }
+
+        return null;
     }
 
     public boolean startTransaction(Object acquirer)

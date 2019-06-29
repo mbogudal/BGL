@@ -14,7 +14,6 @@ public class PushBack1
 {
     Graphic graphic;
     DrawableObject happyFace;
-    DrawableObject sadFace;
 
     @Test
     public void test() throws Exception
@@ -39,6 +38,9 @@ public class PushBack1
 
         if (!graphic.front(this).drawable.equals("happy_face"))
             throw new Exception("bad name");
+
+        if(graphic.getBitmap(happyFace, this) == null)
+            throw new Exception("bitmap not loaded");
 
         Log.d("pushBack1", graphic.front(this).drawable);
 

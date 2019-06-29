@@ -14,7 +14,7 @@ public class Thread1 implements Runnable
     public void run()
     {
         graphic.startTransaction(this);
-        for(int i = 0; i < objects; i++)
+        for(int i = 0; i < objects * 0.10; i++)
             graphic.pop(this);
         graphic.releaseTransaction(this);
 
