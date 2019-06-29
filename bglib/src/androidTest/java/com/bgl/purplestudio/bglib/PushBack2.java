@@ -59,6 +59,9 @@ public class PushBack2
         if(!graphic.pop(this))
             throw  new Exception("error when deleting");
 
+        if(graphic.pop(this))
+            throw new Exception("List is not empty");
+
         graphic.releaseTransaction(this);
     }
 }
