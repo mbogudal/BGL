@@ -14,12 +14,15 @@ public class GraphicTests
 {
     Graphic graphic;
     DrawableObject happyFace;
+    DrawableObject sadFace;
+
+    GraphicTests(){
+        graphic = new Graphic(InstrumentationRegistry.getTargetContext(), 5);
+    }
 
     @Test
     public void pushBack1() throws Exception
     {
-        graphic = new Graphic(InstrumentationRegistry.getTargetContext(), 5);
-
         happyFace = new DrawableObject();
         happyFace.angle = 0;
         happyFace.drawable = "happy_face";
