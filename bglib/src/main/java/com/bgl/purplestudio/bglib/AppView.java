@@ -5,6 +5,8 @@ public class AppView {
     public int width;
     public int screenHeight;
     public int screenWidth;
+    public int topMargin;
+    public int leftMargin;
     public double widthScale;
 
     public AppView(int screenHeight, int screenWidth)
@@ -22,6 +24,10 @@ public class AppView {
             height = (int) (screenWidth / widthScale);
             width = screenWidth;
         }
+
+        topMargin = (screenHeight - height) / 2;
+        leftMargin = (screenWidth - width) / 2;
+
     }
 
     public void configure(double widthScale) throws Exception
