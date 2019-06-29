@@ -2,6 +2,8 @@ package com.bgl.purplestudio.bglib;
 
 import android.util.Log;
 
+import com.bgl.purplestudio.bglib.Graphic.Graphic;
+
 public class Thread2 implements Runnable
 {
     Graphic graphic;

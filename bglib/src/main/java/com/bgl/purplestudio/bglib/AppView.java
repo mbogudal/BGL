@@ -7,7 +7,7 @@ public class AppView {
     public int screenWidth;
     public double widthScale;
 
-    AppView(int screenHeight, int screenWidth)
+    public AppView(int screenHeight, int screenWidth)
     {
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;

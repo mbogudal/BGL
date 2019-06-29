@@ -2,6 +2,7 @@ package com.bgl.purplestudio.bglib;
 
 import android.support.test.InstrumentationRegistry;
 
+import com.bgl.purplestudio.bglib.Graphic.Graphic;
 import com.bgl.purplestudio.bglib.models.DrawableObject;
 
 import org.junit.Test;

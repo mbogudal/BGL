@@ -1,5 +1,7 @@
 package com.bgl.purplestudio.bglib;
 
+import com.bgl.purplestudio.bglib.Graphic.Graphic;
+
 public class Thread1 implements Runnable
 {
     Graphic graphic;

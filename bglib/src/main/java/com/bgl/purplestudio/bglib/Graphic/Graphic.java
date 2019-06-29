@@ -1,9 +1,10 @@
-package com.bgl.purplestudio.bglib;
+package com.bgl.purplestudio.bglib.Graphic;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.bgl.purplestudio.bglib.Paths;
 import com.bgl.purplestudio.bglib.models.DrawableObject;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class Graphic
     private DrawableObject tmpObject;
     private static Semaphore mutex;
 
-    Graphic(Context context, int layersAmount)
+    public Graphic(Context context, int layersAmount)
     {
         this.context = context;
         this.layersAmount = layersAmount;
