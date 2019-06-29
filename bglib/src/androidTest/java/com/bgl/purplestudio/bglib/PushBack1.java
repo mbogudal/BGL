@@ -10,19 +10,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class GraphicTests
+public class PushBack1
 {
     Graphic graphic;
     DrawableObject happyFace;
     DrawableObject sadFace;
 
-    GraphicTests(){
-        graphic = new Graphic(InstrumentationRegistry.getTargetContext(), 5);
-    }
-
     @Test
-    public void pushBack1() throws Exception
+    public void test() throws Exception
     {
+        graphic = new Graphic(InstrumentationRegistry.getTargetContext(), 5);
+
         happyFace = new DrawableObject();
         happyFace.angle = 0;
         happyFace.drawable = "happy_face";
@@ -34,17 +32,16 @@ public class GraphicTests
 
         graphic.pushBack(happyFace);
 
-        if (graphic.front() == null) throw new Exception("grapic front returned null");
+        graphic.startTransaction(this);
 
-        if (!graphic.front().drawable.equals("happy_face"))
+        if (graphic.front(this) == null)
+            throw new Exception("grapic front returned null");
+
+        if (!graphic.front(this).drawable.equals("happy_face"))
             throw new Exception("bad name");
 
-        Log.d("pushBack1", graphic.front().drawable);
-    }
+        Log.d("pushBack1", graphic.front(this).drawable);
 
-    @Test
-    public void pushback2() throws Exception
-    {
-
+        graphic.releaseTransaction(this);
     }
 }

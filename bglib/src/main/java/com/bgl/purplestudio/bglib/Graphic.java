@@ -98,36 +98,6 @@ public class Graphic
         objects.get(object.layerId).add(object);
         mutex.release();
         return true;
-
-
-    }
-
-    public DrawableObject front()
-    {
-        acquire();
-        if (setLayerCursor())
-        {
-            tmpObject = objects.get(layerCursor).get(0);
-            mutex.release();
-            return tmpObject;
-        }
-        mutex.release();
-        return null;
-
-    }
-
-    public boolean pop()
-    {
-        acquire();
-        if (setLayerCursor())
-        {
-            objects.get(layerCursor).remove(0);
-            mutex.release();
-            return true;
-        }
-
-        mutex.release();
-        return false;
     }
 
     public DrawableObject front(Object acquirer)
@@ -136,12 +106,10 @@ public class Graphic
             if (setLayerCursor())
             {
                 tmpObject = objects.get(layerCursor).get(0);
-                mutex.release();
                 return tmpObject;
             }
 
         return null;
-
     }
 
     public boolean pop(Object acquirer)
@@ -150,7 +118,6 @@ public class Graphic
             if (setLayerCursor())
             {
                 objects.get(layerCursor).remove(0);
-                mutex.release();
                 return true;
             }
 
@@ -163,7 +130,6 @@ public class Graphic
         tmpBitmap = bitmaps.get(object.drawable);
         mutex.release();
         return tmpBitmap;
-
     }
 
     public boolean startTransaction(Object acquirer)
