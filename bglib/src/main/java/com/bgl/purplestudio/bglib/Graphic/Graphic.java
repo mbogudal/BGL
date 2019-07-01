@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.bgl.purplestudio.bglib.Paths;
-import com.bgl.purplestudio.bglib.models.DrawableObject;
+import com.bgl.purplestudio.bglib.Models.DrawableObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -4,7 +4,7 @@ import android.support.test.InstrumentationRegistry;
 import android.util.Log;
 
 import com.bgl.purplestudio.bglib.Graphic.Graphic;
-import com.bgl.purplestudio.bglib.models.DrawableObject;
+import com.bgl.purplestudio.bglib.Models.DrawableObject;
 
 import org.junit.Test;
 

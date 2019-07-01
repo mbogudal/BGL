@@ -1,4 +1,4 @@
-package com.bgl.purplestudio.bglib.models;
+package com.bgl.purplestudio.bglib.Models;
 
 public class Object
 {

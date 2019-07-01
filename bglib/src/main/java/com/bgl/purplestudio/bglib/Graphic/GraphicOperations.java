@@ -1,8 +1,10 @@
 package com.bgl.purplestudio.bglib.Graphic;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
 
-import com.bgl.purplestudio.bglib.models.DrawableObject;
+import com.bgl.purplestudio.bglib.Models.DrawableObject;
 
 public class GraphicOperations
 {
