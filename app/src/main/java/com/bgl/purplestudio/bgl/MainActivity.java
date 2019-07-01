@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         t1 = new Thread(display);
 
         try{
-            appView.configure(0.1);
+            appView.configure(0.5);
         }catch (Exception e){
             System.out.println(e);
         }

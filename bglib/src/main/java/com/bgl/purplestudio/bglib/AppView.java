@@ -17,7 +17,7 @@ public class AppView {
 
     private void setDimensions()
     {
-        if(screenWidth / screenHeight >= widthScale) {
+        if(screenWidth / ( (double) screenHeight) >= widthScale) {
             height = screenHeight;
             width = (int) (screenHeight * widthScale);
         } else {

@@ -3,7 +3,9 @@ package com.bgl.purplestudio.bglib.Graphic;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.os.Looper;
 import android.os.Handler;
 import android.os.Message;
@@ -38,30 +40,12 @@ public class Display extends Sender implements Runnable, Trigger
 
     }
 
-    private void drawMargin(int x, int y, int w, int h, int color)
-    {
-        Matrix matrix = new Matrix();
-
-        tmpBitmap = Bitmap.createBitmap(
-                w,
-                h,
-                Bitmap.Config.ARGB_8888
-        );
-
-        matrix.postTranslate(x, y);
-
-        tmpBitmap.eraseColor(color);
-        tmpCanvas.drawBitmap(
-                tmpBitmap,
-                matrix,
-                null
-        );
-    }
-
     public void setMarginsView(int color)
     {
         Object[] obj = new Object[2];
         tmpMsg = injector.obtainMessage();
+        Paint paint = new Paint();
+        paint.setColor(color);
 
         tmpBitmap = Bitmap.createBitmap(
                 appView.screenWidth,
@@ -72,40 +56,36 @@ public class Display extends Sender implements Runnable, Trigger
         tmpCanvas = new Canvas(tmpBitmap);
 
         if(appView.leftMargin > 0)
-        drawMargin(
-                0,
-                0,
-                appView.leftMargin,
-                appView.screenHeight,
-                color
-        );
+        {
+            tmpCanvas.drawRect(
+                    0,
+                    0,
+                    appView.leftMargin,
+                    appView.screenHeight,
+                    paint
+            );
+        }
 
         if(appView.topMargin > 0)
-        drawMargin(
-                0,
-                0,
-                appView.screenWidth,
-                appView.topMargin,
-                color
-        );
+        {
+            tmpCanvas.drawRect(
+                    0,
+                    0,
+                    appView.screenWidth,
+                    appView.topMargin,
+                    paint
+            );
+        }
 
-        if(appView.leftMargin + appView.width < appView.screenWidth)
-        drawMargin(
-                appView.leftMargin + appView.width,
-                0,
-                appView.screenWidth,
-                appView.screenHeight,
-                color
-        );
-
-        if(appView.topMargin + appView.height < appView.screenHeight)
-        drawMargin(
-                0,
-                appView.topMargin + appView.height,
-                appView.screenWidth,
-                appView.screenHeight,
-                color
-        );
+        if(appView.leftMargin + appView.width < appView.screenWidth){
+            tmpCanvas.drawRect(
+                    appView.leftMargin + appView.width,
+                    0,
+                    appView.screenWidth,
+                    appView.screenHeight,
+                    paint
+            );
+        }
 
         tmpView = new ImageView(context);
         tmpView.setImageBitmap(tmpBitmap);
@@ -120,7 +100,7 @@ public class Display extends Sender implements Runnable, Trigger
     @Override
     public void run()
     {
-        setMarginsView(0);
+        setMarginsView(Color.rgb(0,0,0));
         while (!died)
         {
             if (triggered)
