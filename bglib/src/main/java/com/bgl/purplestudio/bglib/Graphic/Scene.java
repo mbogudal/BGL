@@ -7,10 +7,10 @@ import android.widget.ImageView;
 
 public class Scene extends Sender
 {
-    private ImageView sceneView;
+    private ConstraintLayout sceneView;
     private ConstraintLayout mainView;
-    private ImageView marginsView;
-    private ImageView interfaceView;
+    private ConstraintLayout marginsView;
+    private ConstraintLayout interfaceView;
 
     public Scene(Context context, ConstraintLayout csLayout)
     {
@@ -18,9 +18,9 @@ public class Scene extends Sender
         Message msg = injector.obtainMessage();
 
         mainView = new ConstraintLayout(context);
-        sceneView = new ImageView(context);
-        marginsView = new ImageView(context);
-        interfaceView = new ImageView(context);
+        sceneView = new ConstraintLayout(context);
+        marginsView = new ConstraintLayout(context);
+        interfaceView = new ConstraintLayout(context);
 
         mainView.addView(sceneView);
         mainView.addView(interfaceView);
@@ -36,17 +36,17 @@ public class Scene extends Sender
 
     }
 
-    public ImageView getSceneView()
+    public ConstraintLayout getSceneView()
     {
         return sceneView;
     }
 
-    public ImageView getMarginsView()
+    public ConstraintLayout getMarginsView()
     {
         return marginsView;
     }
 
-    public ImageView getInterfaceView()
+    public ConstraintLayout getInterfaceView()
     {
         return interfaceView;
     }

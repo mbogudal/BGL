@@ -4,12 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.media.Image;
 import android.os.Looper;
 import android.os.Handler;
 import android.os.Message;
-import android.support.constraint.ConstraintLayout;
 import android.widget.ImageView;
 
 import com.bgl.purplestudio.bglib.AppView;
@@ -20,8 +17,6 @@ public class Display extends Sender implements Runnable, Trigger
 {
     private boolean triggered;
     private boolean died;
-    private Object tmpObj;
-    private Handler uiHandler;
     private Canvas tmpCanvas;
     private Bitmap tmpBitmap;
     private ImageView tmpView;
@@ -40,9 +35,6 @@ public class Display extends Sender implements Runnable, Trigger
 
         died = false;
         triggered = false;
-        uiHandler = new Handler(Looper.getMainLooper());
-
-        setMarginsView(0);
 
     }
 
@@ -68,8 +60,8 @@ public class Display extends Sender implements Runnable, Trigger
 
     public void setMarginsView(int color)
     {
+        Object[] obj = new Object[2];
         tmpMsg = injector.obtainMessage();
-        tmpObj = new Object[2];
 
         tmpBitmap = Bitmap.createBitmap(
                 appView.screenWidth,
@@ -79,6 +71,7 @@ public class Display extends Sender implements Runnable, Trigger
 
         tmpCanvas = new Canvas(tmpBitmap);
 
+        if(appView.leftMargin > 0)
         drawMargin(
                 0,
                 0,
@@ -86,6 +79,8 @@ public class Display extends Sender implements Runnable, Trigger
                 appView.screenHeight,
                 color
         );
+
+        if(appView.topMargin > 0)
         drawMargin(
                 0,
                 0,
@@ -93,6 +88,8 @@ public class Display extends Sender implements Runnable, Trigger
                 appView.topMargin,
                 color
         );
+
+        if(appView.leftMargin + appView.width < appView.screenWidth)
         drawMargin(
                 appView.leftMargin + appView.width,
                 0,
@@ -100,6 +97,8 @@ public class Display extends Sender implements Runnable, Trigger
                 appView.screenHeight,
                 color
         );
+
+        if(appView.topMargin + appView.height < appView.screenHeight)
         drawMargin(
                 0,
                 appView.topMargin + appView.height,
@@ -110,8 +109,10 @@ public class Display extends Sender implements Runnable, Trigger
 
         tmpView = new ImageView(context);
         tmpView.setImageBitmap(tmpBitmap);
+        obj[0] = scene.getMarginsView();
+        obj[1] = tmpView;
         tmpMsg.what = InjectionTypes.REPLACE;
-        tmpMsg.obj = tmpObj;
+        tmpMsg.obj = obj;
         injector.sendMessage(tmpMsg);
 
     }
@@ -119,6 +120,7 @@ public class Display extends Sender implements Runnable, Trigger
     @Override
     public void run()
     {
+        setMarginsView(0);
         while (!died)
         {
             if (triggered)
