@@ -55,7 +55,7 @@ public class Display extends Sender implements Runnable, Trigger
 
         tmpCanvas = new Canvas(tmpBitmap);
 
-        if(appView.leftMargin > 0)
+        if (appView.leftMargin > 0)
         {
             tmpCanvas.drawRect(
                     0,
@@ -66,7 +66,7 @@ public class Display extends Sender implements Runnable, Trigger
             );
         }
 
-        if(appView.topMargin > 0)
+        if (appView.topMargin > 0)
         {
             tmpCanvas.drawRect(
                     0,
@@ -77,10 +77,22 @@ public class Display extends Sender implements Runnable, Trigger
             );
         }
 
-        if(appView.leftMargin + appView.width < appView.screenWidth){
+        if (appView.leftMargin + appView.width < appView.screenWidth)
+        {
             tmpCanvas.drawRect(
                     appView.leftMargin + appView.width,
                     0,
+                    appView.screenWidth,
+                    appView.screenHeight,
+                    paint
+            );
+        }
+
+        if (appView.topMargin + appView.height < appView.screenHeight)
+        {
+            tmpCanvas.drawRect(
+                    0,
+                    appView.topMargin + appView.height,
                     appView.screenWidth,
                     appView.screenHeight,
                     paint
@@ -100,7 +112,7 @@ public class Display extends Sender implements Runnable, Trigger
     @Override
     public void run()
     {
-        setMarginsView(Color.rgb(0,0,0));
+        setMarginsView(Color.rgb(0, 0, 0));
         while (!died)
         {
             if (triggered)
