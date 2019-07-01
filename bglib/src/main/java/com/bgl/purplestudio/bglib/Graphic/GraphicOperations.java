@@ -13,12 +13,11 @@ public class GraphicOperations
     public static Matrix rotate(DrawableObject object)
     {
         tmpMatrix = new Matrix();
-        xp = 0;
-        yp = 0;
+        xp = object.posx;
+        yp = object.posy;
 
         if (object.angle > 0)
         {
-
             tmpMatrix.postRotate((float) object.angle);
 
             xp = (int) (Math.cos(Math.toRadians(object.angle)) * object.width);
@@ -28,20 +27,17 @@ public class GraphicOperations
             yp = yp + (int) (Math.sin(Math.toRadians(object.angle)) * object.width);
 
             if (xp == object.width)
-                xp = 0;
+                xp = object.posx;
             else
-                xp = Math.abs(xp);
+                xp = object.posx + Math.abs(xp);
 
             if (yp == object.height)
-                yp = 0;
+                yp = object.posy;
             else
-                yp = Math.abs(yp);
+                yp = object.posx + Math.abs(yp);
         }
 
-        tmpMatrix.postTranslate(
-                object.width + xp,
-                object.height + yp
-        );
+        tmpMatrix.postTranslate(xp, yp);
 
         return tmpMatrix;
     }
