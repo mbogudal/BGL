@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         Rect rect = new Rect();
         Window window = this.getWindow();
         AppView appView;
-        Graphic graphic = new Graphic(this, 1);
+        Graphic graphic = new Graphic(this, 2);
         Scene scene = new Scene(this, (ConstraintLayout) findViewById(R.id.main));
         Display display;
         Thread t1;
@@ -46,10 +46,21 @@ public class MainActivity extends AppCompatActivity {
         tmpDrawable.angle = 0;
         tmpDrawable.drawable = "happy_face";
         tmpDrawable.layerId = 0;
-        tmpDrawable.width = 200;
-        tmpDrawable.height = 200;
-        tmpDrawable.posx = 0;
-        tmpDrawable.posy = 0;
+        tmpDrawable.width = 100;
+        tmpDrawable.height = 100;
+        tmpDrawable.posx = 400;
+        tmpDrawable.posy = 400git;
+
+        graphic.pushBack(tmpDrawable);
+
+        tmpDrawable = new DrawableObject();
+        tmpDrawable.angle = 0;
+        tmpDrawable.drawable = "green_field";
+        tmpDrawable.layerId = 1;
+        tmpDrawable.width = 100;
+        tmpDrawable.height = 100;
+        tmpDrawable.posx = 200;
+        tmpDrawable.posy = 200;
 
         graphic.pushBack(tmpDrawable);
 
