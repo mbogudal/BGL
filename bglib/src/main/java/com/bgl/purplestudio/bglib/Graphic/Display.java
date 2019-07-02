@@ -142,14 +142,14 @@ public class Display extends Sender implements Runnable, Trigger
                 {
                     tmpDrawable = graphic.front(this);
 
-                    graphic.pop(this);
-
-                    if(GraphicOperations.visibleObject(tmpDrawable,appView))
+                    if(GraphicOperations.visibleObject(tmpDrawable, appView))
                     tmpCanvas.drawBitmap(
                             graphic.getBitmap(tmpDrawable, this),
                             GraphicOperations.rotate(tmpDrawable),
                             null
                     );
+
+                    graphic.pop(this);
                 }
 
                 graphic.releaseTransaction(this);

@@ -133,7 +133,6 @@ public class Graphic
         if(this.acquirer == acquirer)
         {
             tmpBitmap = bitmaps.get(object.drawable);
-            mutex.release();
             return tmpBitmap;
         }
 
