@@ -2,7 +2,7 @@ package com.bgl.purplestudio.bglib.Graphic;
 
 import android.os.Looper;
 
-public class Sender
+public abstract class Sender
 {
     protected static ViewInjector injector;
 

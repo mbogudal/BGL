@@ -14,6 +14,10 @@ import com.bgl.purplestudio.bglib.Models.DrawableObject;
 
 public class MainActivity extends AppCompatActivity {
 
+    /*
+    This example was prepared for phones with screen resolution 800x480
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

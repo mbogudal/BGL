@@ -15,6 +15,8 @@ import com.bgl.purplestudio.bglib.AppView;
 import com.bgl.purplestudio.bglib.Models.DrawableObject;
 import com.bgl.purplestudio.bglib.Trigger;
 
+import java.util.concurrent.Semaphore;
+
 
 public class Display extends Sender implements Runnable, Trigger
 {
@@ -30,9 +32,13 @@ public class Display extends Sender implements Runnable, Trigger
     private AppView appView;
     private Graphic graphic;
     private DrawableObject tmpDrawable;
+    private Semaphore mutex;
 
     public Display(AppView appView, Graphic graphic, Scene scene, Context context)
     {
+        mutex = new Semaphore(1);
+
+        acquire();
         this.appView = appView;
         this.graphic = graphic;
         this.scene = scene;
@@ -40,11 +46,22 @@ public class Display extends Sender implements Runnable, Trigger
 
         died = false;
         triggered = false;
+        mutex.release();
+    }
 
+    private void acquire(){
+        try
+        {
+            mutex.acquire();
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void setMarginsView(int color)
     {
+        acquire();
         obj = new Object[2];
         tmpMsg = injector.obtainMessage();
         Paint paint = new Paint();
@@ -101,7 +118,7 @@ public class Display extends Sender implements Runnable, Trigger
         tmpMsg.what = InjectionTypes.REPLACE;
         tmpMsg.obj = obj;
         injector.sendMessage(tmpMsg);
-
+        mutex.release();
     }
 
     private boolean visibleVertice(int x, int y)
@@ -135,6 +152,7 @@ public class Display extends Sender implements Runnable, Trigger
         {
             if (triggered)
             {
+                acquire();
                 tmpMsg = injector.obtainMessage();
                 obj = new Object[2];
                 tmpBitmap = Bitmap.createBitmap(
@@ -174,6 +192,7 @@ public class Display extends Sender implements Runnable, Trigger
                 injector.sendMessage(tmpMsg);
 
                 triggered = false;
+                mutex.release();
             }
         }
     }

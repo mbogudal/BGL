@@ -1,5 +1,7 @@
 package com.bgl.purplestudio.bgl;
 
+import android.graphics.Color;
+
 import com.bgl.purplestudio.bglib.Graphic.Display;
 import com.bgl.purplestudio.bglib.Graphic.Graphic;
 import com.bgl.purplestudio.bglib.Models.DrawableObject;
@@ -22,6 +24,8 @@ public class Example implements Runnable
     }
 
     void example1(){
+        display.setMarginsView(Color.rgb(100,0,100));
+
         tmpDrawable = new DrawableObject();
         tmpDrawable.angle = 0;
         tmpDrawable.drawable = "sad_face";

@@ -23,12 +23,11 @@ public class Graphic
     private Context context;
     private Bitmap tmpBitmap;
     private DrawableObject tmpObject;
-    private static Semaphore mutex;
+    private Semaphore mutex;
 
     public Graphic(Context context, int layersAmount)
     {
-        if (mutex == null)
-            mutex = new Semaphore(1);
+        mutex = new Semaphore(1);
 
         acquire();
         this.context = context;
