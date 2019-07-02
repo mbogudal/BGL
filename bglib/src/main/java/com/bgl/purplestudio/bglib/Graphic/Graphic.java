@@ -69,7 +69,6 @@ public class Graphic
 
     private boolean setLayerCursor()
     {
-        layerCursor = 0;
         while (layerCursor < layersAmount)
         {
             if (objects.get(layerCursor).size() > 0)
@@ -77,6 +76,8 @@ public class Graphic
 
             layerCursor++;
         }
+
+        layerCursor = 0;
 
         return false;
     }
@@ -95,6 +96,7 @@ public class Graphic
     public boolean pushBack(DrawableObject object)
     {
         acquire();
+        layerCursor = 0;
         loadBitmap(object);
         objects.get(object.layerId).add(object);
         mutex.release();

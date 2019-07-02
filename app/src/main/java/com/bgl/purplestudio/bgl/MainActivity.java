@@ -10,6 +10,7 @@ import com.bgl.purplestudio.bglib.AppView;
 import com.bgl.purplestudio.bglib.Graphic.Display;
 import com.bgl.purplestudio.bglib.Graphic.Graphic;
 import com.bgl.purplestudio.bglib.Graphic.Scene;
+import com.bgl.purplestudio.bglib.Models.DrawableObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Scene scene = new Scene(this, (ConstraintLayout) findViewById(R.id.main));
         Display display;
         Thread t1;
+        DrawableObject tmpDrawable;
 
         window.getDecorView().getWindowVisibleDisplayFrame(rect);
 
@@ -34,12 +36,24 @@ public class MainActivity extends AppCompatActivity {
         t1 = new Thread(display);
 
         try{
-            appView.configure(0.9);
+            appView.configure(0.75);
         }catch (Exception e){
             System.out.println(e);
         }
         t1.start();
 
+        tmpDrawable = new DrawableObject();
+        tmpDrawable.angle = 0;
+        tmpDrawable.drawable = "happy_face";
+        tmpDrawable.layerId = 0;
+        tmpDrawable.width = 200;
+        tmpDrawable.height = 200;
+        tmpDrawable.posx = 0;
+        tmpDrawable.posy = 0;
+
+        graphic.pushBack(tmpDrawable);
+
+        display.fire();
 
     }
 }

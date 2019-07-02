@@ -12,6 +12,7 @@ import android.os.Message;
 import android.widget.ImageView;
 
 import com.bgl.purplestudio.bglib.AppView;
+import com.bgl.purplestudio.bglib.Models.DrawableObject;
 import com.bgl.purplestudio.bglib.Trigger;
 
 
@@ -19,6 +20,7 @@ public class Display extends Sender implements Runnable, Trigger
 {
     private boolean triggered;
     private boolean died;
+    private Object[] obj;
     private Canvas tmpCanvas;
     private Bitmap tmpBitmap;
     private ImageView tmpView;
@@ -27,6 +29,7 @@ public class Display extends Sender implements Runnable, Trigger
     private Scene scene;
     private AppView appView;
     private Graphic graphic;
+    private DrawableObject tmpDrawable;
 
     public Display(AppView appView, Graphic graphic, Scene scene, Context context)
     {
@@ -42,7 +45,7 @@ public class Display extends Sender implements Runnable, Trigger
 
     public void setMarginsView(int color)
     {
-        Object[] obj = new Object[2];
+        obj = new Object[2];
         tmpMsg = injector.obtainMessage();
         Paint paint = new Paint();
         paint.setColor(color);
@@ -117,7 +120,43 @@ public class Display extends Sender implements Runnable, Trigger
         {
             if (triggered)
             {
+                System.out.println("test");
+                tmpMsg = injector.obtainMessage();
+                obj = new Object[2];
+                tmpBitmap = Bitmap.createBitmap(
+                        appView.width,
+                        appView.height,
+                        Bitmap.Config.ARGB_8888
+                );
+                tmpCanvas = new Canvas(tmpBitmap);
 
+                graphic.startTransaction(this);
+
+                while (graphic.front(this) != null)
+                {
+                    tmpDrawable = graphic.front(this);
+
+                    graphic.pop(this);
+
+                    tmpCanvas.drawBitmap(
+                            graphic.getBitmap(tmpDrawable, this),
+                            GraphicOperations.rotate(tmpDrawable),
+                            null
+                    );
+                }
+
+                graphic.releaseTransaction(this);
+
+                tmpView = new ImageView(context);
+                tmpView.setImageBitmap(tmpBitmap);
+
+                obj[0] = scene.getSceneView();
+                obj[1] = tmpView;
+
+                tmpMsg.what = InjectionTypes.REPLACE;
+                tmpMsg.obj = obj;
+
+                injector.handleMessage(tmpMsg);
 
                 triggered = false;
             }
