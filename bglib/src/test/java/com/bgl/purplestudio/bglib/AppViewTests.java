@@ -18,7 +18,7 @@ public class AppViewTests
             if (e.getMessage().equals(Errors.WIDTHSCALE.value))
                 System.out.println("v1 ok");
             else
-                System.out.println(e);
+                e.printStackTrace();
         }
 
     }
@@ -33,7 +33,7 @@ public class AppViewTests
             v2.configure(0.75);
         } catch (Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         if (v2.height == 800 && v2.width == 600)
@@ -53,7 +53,7 @@ public class AppViewTests
             if (e.getMessage().equals(Errors.DIMENSIONSCOMPARE.value))
                 System.out.println("v3 ok");
             else
-                System.out.println(e);
+                e.printStackTrace();
         }
 
     }
@@ -68,7 +68,7 @@ public class AppViewTests
             v4.configure(0.75);
         } catch (Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
 
@@ -86,7 +86,7 @@ public class AppViewTests
             v5.configure(0.5);
         } catch (Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
 

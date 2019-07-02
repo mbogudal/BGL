@@ -25,46 +25,27 @@ public class MainActivity extends AppCompatActivity {
         Graphic graphic = new Graphic(this, 2);
         Scene scene = new Scene(this, (ConstraintLayout) findViewById(R.id.main));
         Display display;
+        Example example;
         Thread t1;
-        DrawableObject tmpDrawable;
-
+        Thread t2;
         window.getDecorView().getWindowVisibleDisplayFrame(rect);
 
         appView = new AppView(rect.bottom, rect.right);
 
         display = new Display(appView, graphic, scene, this);
         t1 = new Thread(display);
-
+        t1.start();
         try{
             appView.configure(0.75);
         }catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
-        t1.start();
 
-        tmpDrawable = new DrawableObject();
-        tmpDrawable.angle = 0;
-        tmpDrawable.drawable = "happy_face";
-        tmpDrawable.layerId = 0;
-        tmpDrawable.width = 100;
-        tmpDrawable.height = 100;
-        tmpDrawable.posx = 400;
-        tmpDrawable.posy = 400git;
+        example = new Example(display, graphic);
 
-        graphic.pushBack(tmpDrawable);
+        t2 = new Thread(example);
 
-        tmpDrawable = new DrawableObject();
-        tmpDrawable.angle = 0;
-        tmpDrawable.drawable = "green_field";
-        tmpDrawable.layerId = 1;
-        tmpDrawable.width = 100;
-        tmpDrawable.height = 100;
-        tmpDrawable.posx = 200;
-        tmpDrawable.posy = 200;
-
-        graphic.pushBack(tmpDrawable);
-
-        display.fire();
+        t2.start();
 
     }
 }

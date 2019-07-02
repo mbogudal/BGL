@@ -59,7 +59,6 @@ public class Display extends Sender implements Runnable, Trigger
         tmpCanvas = new Canvas(tmpBitmap);
 
         if (appView.leftMargin > 0)
-        {
             tmpCanvas.drawRect(
                     0,
                     0,
@@ -67,10 +66,8 @@ public class Display extends Sender implements Runnable, Trigger
                     appView.screenHeight,
                     paint
             );
-        }
 
         if (appView.topMargin > 0)
-        {
             tmpCanvas.drawRect(
                     0,
                     0,
@@ -78,10 +75,8 @@ public class Display extends Sender implements Runnable, Trigger
                     appView.topMargin,
                     paint
             );
-        }
 
         if (appView.leftMargin + appView.width < appView.screenWidth)
-        {
             tmpCanvas.drawRect(
                     appView.leftMargin + appView.width,
                     0,
@@ -89,10 +84,8 @@ public class Display extends Sender implements Runnable, Trigger
                     appView.screenHeight,
                     paint
             );
-        }
 
         if (appView.topMargin + appView.height < appView.screenHeight)
-        {
             tmpCanvas.drawRect(
                     0,
                     appView.topMargin + appView.height,
@@ -100,7 +93,6 @@ public class Display extends Sender implements Runnable, Trigger
                     appView.screenHeight,
                     paint
             );
-        }
 
         tmpView = new ImageView(context);
         tmpView.setImageBitmap(tmpBitmap);
@@ -112,6 +104,29 @@ public class Display extends Sender implements Runnable, Trigger
 
     }
 
+    private boolean visibleVertice(int x, int y)
+    {
+        if (x >= appView.leftMargin && x <= appView.leftMargin + appView.width)
+            if (y >= appView.topMargin && y <= appView.topMargin + appView.height)
+                return true;
+
+        return false;
+    }
+
+    private boolean visibleObject(DrawableObject object)
+    {
+        if (visibleVertice(object.posx, object.posy))
+            return true;
+        if (visibleVertice(object.posx, object.posx + object.width))
+            return  true;
+        if(visibleVertice(object.posx + object.height, object.posy))
+            return true;
+        if(visibleVertice(object.posx + object.height, object.posy + object.width))
+            return true;
+
+        return false;
+    }
+
     @Override
     public void run()
     {
@@ -120,7 +135,6 @@ public class Display extends Sender implements Runnable, Trigger
         {
             if (triggered)
             {
-                System.out.println("test");
                 tmpMsg = injector.obtainMessage();
                 obj = new Object[2];
                 tmpBitmap = Bitmap.createBitmap(
@@ -138,6 +152,7 @@ public class Display extends Sender implements Runnable, Trigger
 
                     graphic.pop(this);
 
+                    if(visibleObject(tmpDrawable))
                     tmpCanvas.drawBitmap(
                             graphic.getBitmap(tmpDrawable, this),
                             GraphicOperations.rotate(tmpDrawable),
@@ -156,7 +171,7 @@ public class Display extends Sender implements Runnable, Trigger
                 tmpMsg.what = InjectionTypes.REPLACE;
                 tmpMsg.obj = obj;
 
-                injector.handleMessage(tmpMsg);
+                injector.sendMessage(tmpMsg);
 
                 triggered = false;
             }

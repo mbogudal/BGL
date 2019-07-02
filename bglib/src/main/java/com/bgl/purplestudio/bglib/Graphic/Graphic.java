@@ -27,18 +27,20 @@ public class Graphic
 
     public Graphic(Context context, int layersAmount)
     {
+        if (mutex == null)
+            mutex = new Semaphore(1);
+
+        acquire();
         this.context = context;
         this.layersAmount = layersAmount;
         bitmaps = new HashMap<>();
         objects = new ArrayList<>();
-        if (mutex == null)
-            mutex = new Semaphore(1);
 
         for (int i = 0; i < layersAmount; i++)
         {
             objects.add(new ArrayList<DrawableObject>());
         }
-
+        mutex.release();
     }
 
     private void loadBitmap(DrawableObject object)
