@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        example = new Example(display, graphic);
+        example = new Example(display, graphic, appView);
 
         t2 = new Thread(example);
 

@@ -4,10 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.os.Looper;
-import android.os.Handler;
 import android.os.Message;
 import android.widget.ImageView;
 
@@ -121,29 +118,6 @@ public class Display extends Sender implements Runnable, Trigger
         mutex.release();
     }
 
-    private boolean visibleVertice(int x, int y)
-    {
-        if (x >= appView.leftMargin && x <= appView.leftMargin + appView.width)
-            if (y >= appView.topMargin && y <= appView.topMargin + appView.height)
-                return true;
-
-        return false;
-    }
-
-    private boolean visibleObject(DrawableObject object)
-    {
-        if (visibleVertice(object.posx, object.posy))
-            return true;
-        if (visibleVertice(object.posx, object.posx + object.width))
-            return  true;
-        if(visibleVertice(object.posx + object.height, object.posy))
-            return true;
-        if(visibleVertice(object.posx + object.height, object.posy + object.width))
-            return true;
-
-        return false;
-    }
-
     @Override
     public void run()
     {
@@ -156,8 +130,8 @@ public class Display extends Sender implements Runnable, Trigger
                 tmpMsg = injector.obtainMessage();
                 obj = new Object[2];
                 tmpBitmap = Bitmap.createBitmap(
-                        appView.width,
-                        appView.height,
+                        appView.screenWidth,
+                        appView.screenHeight,
                         Bitmap.Config.ARGB_8888
                 );
                 tmpCanvas = new Canvas(tmpBitmap);
@@ -170,7 +144,7 @@ public class Display extends Sender implements Runnable, Trigger
 
                     graphic.pop(this);
 
-                    if(visibleObject(tmpDrawable))
+                    if(GraphicOperations.visibleObject(tmpDrawable,appView))
                     tmpCanvas.drawBitmap(
                             graphic.getBitmap(tmpDrawable, this),
                             GraphicOperations.rotate(tmpDrawable),
