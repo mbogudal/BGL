@@ -52,6 +52,7 @@ public class Example implements Runnable
     void example2()
     {
 
+        //creating DrawableObject
         tmpDrawable = new DrawableObject(appView.width, 0, "sad_face");
         tmpDrawable.angle = 0;
         tmpDrawable.layerId = 0;
@@ -95,7 +96,10 @@ public class Example implements Runnable
                     continue;
                 }
 
+                //in every step program should add every object, that you wont to display, into graphic.
                 graphic.pushBack(object);
+
+                //something cool staff
                 if (object.getDrawable().equals("happy_face"))
                     object.posx++;
                 else if (object.getDrawable().equals("green_field"))
@@ -128,6 +132,7 @@ public class Example implements Runnable
 
             objects.removeAll(Collections.singleton(null));
 
+            //triggering displaying graphic
             display.fire();
 
             try
