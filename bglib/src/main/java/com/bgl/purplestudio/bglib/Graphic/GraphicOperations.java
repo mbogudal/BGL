@@ -11,11 +11,12 @@ public class GraphicOperations
 {
     private static Matrix tmpMatrix;
 
-    public static Matrix rotate(DrawableObject object)
+    public static Matrix getMatrix(DrawableObject object)
     {
         tmpMatrix = new Matrix();
 
-        tmpMatrix.setRotate((float) object.angle, (object.width /2), (object.height/2));
+        tmpMatrix.postScale( (float) object.getScaleX(), (float) object.getScaleY());
+        tmpMatrix.postRotate( (float) object.angle, object.getPoint0X(), object.getPoint0Y() );
         tmpMatrix.postTranslate(object.posx, object.posy);
 
         return tmpMatrix;
@@ -34,11 +35,11 @@ public class GraphicOperations
     {
         if (visibleVertice(object.posx, object.posy, appView))
             return true;
-        if (visibleVertice(object.posx, object.posx + object.width, appView))
+        if (visibleVertice(object.posx, object.posx + object.getWidth(), appView))
             return  true;
-        if(visibleVertice(object.posx + object.height, object.posy, appView))
+        if(visibleVertice(object.posx + object.getWidth(), object.posy, appView))
             return true;
-        if(visibleVertice(object.posx + object.height, object.posy + object.width, appView))
+        if(visibleVertice(object.posx + object.getWidth(), object.posy + object.getWidth(), appView))
             return true;
 
         return false;

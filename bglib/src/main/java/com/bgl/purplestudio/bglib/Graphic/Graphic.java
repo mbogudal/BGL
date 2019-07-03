@@ -44,11 +44,11 @@ public class Graphic
 
     private void loadBitmap(DrawableObject object)
     {
-        if (!bitmaps.containsKey(object.drawable))
+        if (!bitmaps.containsKey(object.getDrawable()))
         {
 
             tmpId = context.getResources().getIdentifier(
-                    object.drawable,
+                    object.getDrawable(),
                     Paths.DRAWABLE.toString(),
                     context.getPackageName()
 
@@ -56,16 +56,11 @@ public class Graphic
 
             tmpBitmap = BitmapFactory.decodeResource(context.getResources(), tmpId);
 
-            tmpBitmap = Bitmap.createScaledBitmap(
-                    tmpBitmap,
-                    object.width,
-                    object.height,
-                    false
-            );
-
-            bitmaps.put(object.drawable, tmpBitmap);
-
+            bitmaps.put(object.getDrawable(), tmpBitmap);
         }
+
+        object.setBitmap(bitmaps.get(object.getDrawable()));
+
     }
 
     private boolean setLayerCursor()
@@ -126,17 +121,6 @@ public class Graphic
             }
 
         return false;
-    }
-
-    public Bitmap getBitmap(DrawableObject object, Object acquirer)
-    {
-        if(this.acquirer == acquirer)
-        {
-            tmpBitmap = bitmaps.get(object.drawable);
-            return tmpBitmap;
-        }
-
-        return null;
     }
 
     public boolean startTransaction(Object acquirer)

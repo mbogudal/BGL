@@ -144,8 +144,8 @@ public class Display extends Sender implements Runnable, Trigger
 
                     if(GraphicOperations.visibleObject(tmpDrawable, appView))
                     tmpCanvas.drawBitmap(
-                            graphic.getBitmap(tmpDrawable, this),
-                            GraphicOperations.rotate(tmpDrawable),
+                            tmpDrawable.getBitmap(),
+                            GraphicOperations.getMatrix(tmpDrawable),
                             null
                     );
 

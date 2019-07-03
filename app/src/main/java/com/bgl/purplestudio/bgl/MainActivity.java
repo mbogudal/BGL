@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Rect rect = new Rect();
         Window window = this.getWindow();
         AppView appView;
-        Graphic graphic = new Graphic(this, 2);
+        Graphic graphic = new Graphic(this, 3);
         Scene scene = new Scene(this, (ConstraintLayout) findViewById(R.id.main));
         Display display;
         Example example;

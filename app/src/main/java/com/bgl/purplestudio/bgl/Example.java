@@ -9,7 +9,6 @@ import com.bgl.purplestudio.bglib.Graphic.GraphicOperations;
 import com.bgl.purplestudio.bglib.Models.DrawableObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,12 +31,9 @@ public class Example implements Runnable
 
     void example1()
     {
-        tmpDrawable = new DrawableObject();
+        tmpDrawable = new DrawableObject(500, 500, "sad_face");
         tmpDrawable.angle = 0;
-        tmpDrawable.drawable = "sad_face";
         tmpDrawable.layerId = 0;
-        tmpDrawable.width = 500;
-        tmpDrawable.height = 500;
         tmpDrawable.posx = 100;
         tmpDrawable.posy = 400;
 
@@ -55,31 +51,34 @@ public class Example implements Runnable
 
     void example2()
     {
+
+        tmpDrawable = new DrawableObject(appView.width, 0, "sad_face");
+        tmpDrawable.angle = 0;
+        tmpDrawable.layerId = 0;
+        tmpDrawable.posx = 0;
+        tmpDrawable.posy = appView.topMargin;
+
+        objects.add(tmpDrawable);
+
         display.setMarginsView(Color.rgb(100, 0, 100));
         while (true)
         {
 
             if (i % 100 == 0)
             {
-                tmpDrawable = new DrawableObject();
+                tmpDrawable = new DrawableObject(100, 100, "happy_face");
                 tmpDrawable.angle = 0;
-                tmpDrawable.drawable = "happy_face";
-                tmpDrawable.layerId = 0;
-                tmpDrawable.width = 100;
-                tmpDrawable.height = 100;
-                tmpDrawable.posx = -100;
-                tmpDrawable.posy = 400;
+                tmpDrawable.layerId = 1;
+                tmpDrawable.posx = 0;
+                tmpDrawable.posy = appView.screenHeight / 2;
 
                 objects.add(tmpDrawable);
 
-                tmpDrawable = new DrawableObject();
+                tmpDrawable = new DrawableObject(100, 100, "green_field");
                 tmpDrawable.angle = 0;
-                tmpDrawable.drawable = "green_field";
-                tmpDrawable.layerId = 1;
-                tmpDrawable.width = 100;
-                tmpDrawable.height = 100;
-                tmpDrawable.posx = 200;
-                tmpDrawable.posy = -100;
+                tmpDrawable.layerId = 2;
+                tmpDrawable.posx = appView.screenWidth / 2;
+                tmpDrawable.posy = 0;
 
                 objects.add(tmpDrawable);
 
@@ -97,15 +96,33 @@ public class Example implements Runnable
                 }
 
                 graphic.pushBack(object);
-                if (object.drawable.equals("happy_face"))
+                if (object.getDrawable().equals("happy_face"))
                     object.posx++;
-                else
+                else if (object.getDrawable().equals("green_field"))
                 {
                     if (object.angle >= 360)
                         object.angle = 0;
                     else
                         object.angle++;
+
+                    object.setDrawable("red_field");
                     object.posy++;
+                }else if (object.getDrawable().equals("red_field"))
+                {
+                    if (object.angle >= 360)
+                        object.angle = 0;
+                    else
+                        object.angle++;
+
+                    object.setDrawable("green_field");
+                    object.posy++;
+                } else if (object.getDrawable().equals("sad_face"))
+                {
+                    if(object.getHeight() < appView.height)
+                        object.setHeight(object.getHeight() + 1);
+                    else
+                        object.setHeight(0);
+
                 }
             }
 
