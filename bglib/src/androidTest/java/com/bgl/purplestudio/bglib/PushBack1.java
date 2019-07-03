@@ -21,14 +21,11 @@ public class PushBack1
     {
         graphic = new Graphic(InstrumentationRegistry.getTargetContext(), 5);
 
-        happyFace = new DrawableObject();
+        happyFace = new DrawableObject(600, 600, "happy_face");
         happyFace.angle = 0;
-        happyFace.drawable = "happy_face";
         happyFace.posx = 0;
         happyFace.posy = 0;
         happyFace.layerId = 0;
-        happyFace.width = 600;
-        happyFace.height = 600;
 
         graphic.pushBack(happyFace);
 
@@ -37,13 +34,13 @@ public class PushBack1
         if (graphic.front(this) == null)
             throw new Exception("grapic front returned null");
 
-        if (!graphic.front(this).drawable.equals("happy_face"))
+        if (!graphic.front(this).getDrawable().equals("happy_face"))
             throw new Exception("bad name");
 
-        if(graphic.getBitmap(happyFace, this) == null)
+        if(happyFace.getBitmap() == null)
             throw new Exception("bitmap not loaded");
 
-        Log.d("pushBack1", graphic.front(this).drawable);
+        Log.d("pushBack1", graphic.front(this).getDrawable());
 
         graphic.releaseTransaction(this);
     }

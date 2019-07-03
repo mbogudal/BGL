@@ -18,20 +18,13 @@ public class PushBack2
     public void test() throws Exception
     {
         graphic = new Graphic(InstrumentationRegistry.getTargetContext(), 5);
-        happyFace = new DrawableObject();
-        sadFace = new DrawableObject();
+        happyFace = new DrawableObject(600, 600, "happy_face");
+        sadFace = new DrawableObject(600, 600, "sad_face");
 
         happyFace.angle = 0;
-        happyFace.drawable = "happy_face";
         happyFace.posx = 0;
         happyFace.posy = 0;
         happyFace.layerId = 0;
-        happyFace.width = 600;
-        happyFace.height = 600;
-
-        sadFace.drawable = "sad_face";
-        sadFace.width = 600;
-        sadFace.height = 600;
 
         graphic.pushBack(happyFace);
         graphic.pushBack(sadFace);
@@ -41,10 +34,10 @@ public class PushBack2
         if (graphic.front(this) == null)
             throw new Exception("grapic front returned null");
 
-        if(!graphic.front(this).drawable.equals("happy_face"))
+        if(!graphic.front(this).getDrawable().equals("happy_face"))
             throw new Exception("bad name");
 
-        Log.d("pushBack2a", graphic.front(this).drawable);
+        Log.d("pushBack2a", graphic.front(this).getDrawable());
 
         if(!graphic.pop(this))
             throw  new Exception("error when deleting");
@@ -52,10 +45,10 @@ public class PushBack2
         if (graphic.front(this) == null)
             throw new Exception("grapic front returned null");
 
-        if (!graphic.front(this).drawable.equals("sad_face"))
+        if (!graphic.front(this).getDrawable().equals("sad_face"))
             throw new Exception("bad name");
 
-        Log.d("pushBack2b", graphic.front(this).drawable);
+        Log.d("pushBack2b", graphic.front(this).getDrawable());
 
         if(!graphic.pop(this))
             throw  new Exception("error when deleting");

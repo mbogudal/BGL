@@ -23,10 +23,7 @@ public class Transaction1
         Thread t2 = new Thread(r2);
 
         for(int i = 0; i < objects; i++){
-            tmp = new DrawableObject();
-            tmp.drawable = "happy_face";
-            tmp.width = 1;
-            tmp.height = 10;
+            tmp = new DrawableObject(1, 10, "happy_face");
             graphic.pushBack(tmp);
         }
 
