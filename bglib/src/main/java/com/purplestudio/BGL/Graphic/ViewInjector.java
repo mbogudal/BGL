@@ -22,8 +22,11 @@ public class ViewInjector extends Handler
         switch (msg.what)
         {
             case InjectionTypes.REPLACE:
-                ((ViewGroup) obj[0]).removeAllViews();
                 ((ViewGroup) obj[0]).addView((View) obj[1]);
+
+                for(int i = 0; i < ((ViewGroup) obj[0]).indexOfChild((View) obj[1]) - 1; i++)
+                    ((ViewGroup) obj[0]).removeViewAt(i);
+
                 break;
 
             case InjectionTypes.INSERT:
