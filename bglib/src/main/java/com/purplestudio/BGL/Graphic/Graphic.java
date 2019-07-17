@@ -21,6 +21,7 @@ public class Graphic
     private Object acquirer;
     private HashMap<String, Bitmap> bitmaps;
     private List<DrawableObject>[] objects;
+    private List<DrawableObject> tmpLayer;
     private Context context;
     private Bitmap tmpBitmap;
     private DrawableObject tmpObject;
@@ -64,21 +65,6 @@ public class Graphic
 
     }
 
-    private boolean setLayerCursor()
-    {
-        while (layerCursor < layersAmount)
-        {
-            if (objects[layerCursor].size() > 0)
-                return true;
-
-            layerCursor++;
-        }
-
-        layerCursor = 0;
-
-        return false;
-    }
-
     private void acquire()
     {
         try
@@ -98,51 +84,6 @@ public class Graphic
         objects[object.layerId].add(object);
         mutex.release();
         return true;
-    }
-
-    public DrawableObject front(Object acquirer)
-    {
-        if(this.acquirer == acquirer)
-            if (setLayerCursor())
-            {
-                tmpObject = objects[layerCursor].get(0);
-                return tmpObject;
-            }
-
-        return null;
-    }
-
-    public boolean pop(Object acquirer)
-    {
-        if(this.acquirer == acquirer)
-            if (setLayerCursor())
-            {
-                objects[layerCursor].remove(0);
-                return true;
-            }
-
-        return false;
-    }
-
-    public boolean startTransaction(Object acquirer)
-    {
-        acquire();
-        if(this.acquirer == null)
-        {
-            this.acquirer = acquirer;
-            return true;
-        }
-        mutex.release();
-        return false;
-    }
-
-    public boolean releaseTransaction(Object acquirer){
-        if(this.acquirer == acquirer){
-            this.acquirer = null;
-            mutex.release();
-            return true;
-        }
-        return false;
     }
 
     public Bitmap getBitmap(String drawable){
@@ -166,10 +107,29 @@ public class Graphic
         return bitmaps.get(drawable);
     }
 
-    public void setObjects(List<DrawableObject> objects, int layer)
+    public void setObjects(List<DrawableObject> objects, int layerId)
     {
         acquire();
-        this.objects[layer] = new ArrayList<>(objects);
+        this.objects[layerId] = new ArrayList<>(objects);
         mutex.release();
+    }
+
+    public List<DrawableObject> getLayer(int layerId)
+    {
+        acquire();
+        tmpLayer = new ArrayList<>(objects[layerId]);
+        mutex.release();
+        return tmpLayer;
+    }
+
+    public void clearLayer(int layerId){
+        acquire();
+        objects[layerId] = new ArrayList<>();
+        mutex.release();
+    }
+
+    public int getLayersAmount()
+    {
+        return layersAmount;
     }
 }
