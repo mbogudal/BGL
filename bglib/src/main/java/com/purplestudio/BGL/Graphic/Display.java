@@ -9,10 +9,13 @@ import android.os.Message;
 import android.widget.ImageView;
 
 import com.purplestudio.BGL.AppView;
+import com.purplestudio.BGL.Injection.InjectionTypes;
+import com.purplestudio.BGL.Injection.Sender;
 import com.purplestudio.BGL.Models.DrawableObject;
 import com.purplestudio.BGL.Models.Scene;
 import com.purplestudio.BGL.Trigger;
 
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 
@@ -20,6 +23,9 @@ public class Display extends Sender implements Runnable, Trigger
 {
     private boolean triggered;
     private boolean died;
+    private int iterator;
+    private int iterator2;
+    private int layerSize;
     private Object[] obj;
     private Canvas tmpCanvas;
     private Bitmap tmpBitmap;
@@ -31,6 +37,7 @@ public class Display extends Sender implements Runnable, Trigger
     private Graphic graphic;
     private DrawableObject tmpDrawable;
     private Semaphore mutex;
+    private List<DrawableObject> tmpLayer;
 
     public Display(AppView appView, Graphic graphic, Scene scene, Context context)
     {
@@ -135,33 +142,32 @@ public class Display extends Sender implements Runnable, Trigger
                         appView.screenHeight,
                         Bitmap.Config.ARGB_8888
                 );
+
                 tmpCanvas = new Canvas(tmpBitmap);
 
-                graphic.startTransaction(this);
+                for(iterator = 0; iterator < graphic.getLayersAmount(); iterator++){
+                    tmpLayer = graphic.getLayer(iterator);
+                    layerSize = tmpLayer.size();
+                    for(iterator2 = 0; iterator2 < layerSize; iterator2++){
+                        tmpDrawable = tmpLayer.get(iterator2);
 
-                while (graphic.front(this) != null)
-                {
-                    tmpDrawable = graphic.front(this);
+                        if(GraphicOperations.visibleObject(tmpDrawable, appView))
+                            tmpCanvas.drawBitmap(
+                                    tmpDrawable.getBitmap(),
+                                    GraphicOperations.getMatrix(tmpDrawable),
+                                    null
+                            );
 
-                    if(GraphicOperations.visibleObject(tmpDrawable, appView))
-                    tmpCanvas.drawBitmap(
-                            tmpDrawable.getBitmap(),
-                            GraphicOperations.getMatrix(tmpDrawable),
-                            null
-                    );
+                    }
 
-                    graphic.pop(this);
+                    graphic.clearLayer(iterator);
+
                 }
 
-                graphic.releaseTransaction(this);
+                obj[0] = scene.getSceneImage();
+                obj[1] = tmpBitmap;
 
-                tmpView = new ImageView(context);
-                tmpView.setImageBitmap(tmpBitmap);
-
-                obj[0] = scene.getSceneView();
-                obj[1] = tmpView;
-
-                tmpMsg.what = InjectionTypes.REPLACE;
+                tmpMsg.what = InjectionTypes.REPLACEBITMAP;
                 tmpMsg.obj = obj;
 
                 injector.sendMessage(tmpMsg);
