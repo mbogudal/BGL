@@ -1,4 +1,4 @@
-package com.purplestudio.BGL.Models;
+package purplestudio.BGL.Models;
 
 import android.graphics.Bitmap;
 

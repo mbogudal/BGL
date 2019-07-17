@@ -1,4 +1,4 @@
-package com.purplestudio.BGL;
+package purplestudio.BGL;
 
 import org.junit.Test;
 

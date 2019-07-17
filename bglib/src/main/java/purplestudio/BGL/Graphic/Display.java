@@ -1,4 +1,4 @@
-package com.purplestudio.BGL.Graphic;
+package purplestudio.BGL.Graphic;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,12 +8,12 @@ import android.graphics.Paint;
 import android.os.Message;
 import android.widget.ImageView;
 
-import com.purplestudio.BGL.AppView;
-import com.purplestudio.BGL.Injection.InjectionTypes;
-import com.purplestudio.BGL.Injection.Sender;
-import com.purplestudio.BGL.Models.DrawableObject;
-import com.purplestudio.BGL.Models.Scene;
-import com.purplestudio.BGL.Trigger;
+import purplestudio.BGL.Injection.InjectionTypes;
+import purplestudio.BGL.Models.DrawableObject;
+import purplestudio.BGL.Models.Scene;
+import purplestudio.BGL.AppView;
+import purplestudio.BGL.Injection.Sender;
+import purplestudio.BGL.Trigger;
 
 import java.util.List;
 import java.util.concurrent.Semaphore;

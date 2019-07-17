@@ -1,9 +1,9 @@
-package com.purplestudio.BGL.Graphic;
+package purplestudio.BGL.Graphic;
 
 import android.graphics.Matrix;
 
-import com.purplestudio.BGL.AppView;
-import com.purplestudio.BGL.Models.DrawableObject;
+import purplestudio.BGL.Models.DrawableObject;
+import purplestudio.BGL.AppView;
 
 public class GraphicOperations
 {

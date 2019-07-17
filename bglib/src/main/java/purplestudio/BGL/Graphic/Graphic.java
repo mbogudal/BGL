@@ -1,14 +1,13 @@
-package com.purplestudio.BGL.Graphic;
+package purplestudio.BGL.Graphic;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.purplestudio.BGL.Paths;
-import com.purplestudio.BGL.Models.DrawableObject;
+import purplestudio.BGL.Models.DrawableObject;
+import purplestudio.BGL.Paths;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Semaphore;

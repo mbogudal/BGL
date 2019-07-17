@@ -1,4 +1,4 @@
-package com.purplestudio.BGL.Injection;
+package purplestudio.BGL.Injection;
 
 import android.os.Looper;
 
