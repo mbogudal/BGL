@@ -49,6 +49,22 @@ public class Example implements Runnable
         }
     }
 
+    void example3(){
+        List<DrawableObject> test = new ArrayList<>();
+        long milis;
+
+        for(int i = 0; i < 100000; i++){
+            test.add(new DrawableObject(100, 100, "happy_face"));
+            test.get(i).setBitmap(graphic.getBitmap("happy_face"));
+        }
+
+        //fast copying list
+        milis = System.currentTimeMillis();
+        graphic.setObjects(test, 0);
+        System.out.println("milis:"+(System.currentTimeMillis()-milis));
+        display.fire();
+    }
+
     void example2()
     {
 
@@ -150,6 +166,7 @@ public class Example implements Runnable
     public void run()
     {
         example1();
+        example3();
         example2();
     }
 }

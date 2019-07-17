@@ -8,6 +8,7 @@ import com.purplestudio.BGL.Paths;
 import com.purplestudio.BGL.Models.DrawableObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Semaphore;
@@ -19,7 +20,7 @@ public class Graphic
     private int layersAmount;
     private Object acquirer;
     private HashMap<String, Bitmap> bitmaps;
-    private List<List<DrawableObject>> objects;
+    private List<DrawableObject>[] objects;
     private Context context;
     private Bitmap tmpBitmap;
     private DrawableObject tmpObject;
@@ -33,11 +34,11 @@ public class Graphic
         this.context = context;
         this.layersAmount = layersAmount;
         bitmaps = new HashMap<>();
-        objects = new ArrayList<>();
+        objects = new ArrayList[layersAmount];
 
         for (int i = 0; i < layersAmount; i++)
         {
-            objects.add(new ArrayList<DrawableObject>());
+            objects[i] = new ArrayList<>();
         }
         mutex.release();
     }
@@ -67,7 +68,7 @@ public class Graphic
     {
         while (layerCursor < layersAmount)
         {
-            if (objects.get(layerCursor).size() > 0)
+            if (objects[layerCursor].size() > 0)
                 return true;
 
             layerCursor++;
@@ -94,7 +95,7 @@ public class Graphic
         acquire();
         layerCursor = 0;
         loadBitmap(object);
-        objects.get(object.layerId).add(object);
+        objects[object.layerId].add(object);
         mutex.release();
         return true;
     }
@@ -104,7 +105,7 @@ public class Graphic
         if(this.acquirer == acquirer)
             if (setLayerCursor())
             {
-                tmpObject = objects.get(layerCursor).get(0);
+                tmpObject = objects[layerCursor].get(0);
                 return tmpObject;
             }
 
@@ -116,7 +117,7 @@ public class Graphic
         if(this.acquirer == acquirer)
             if (setLayerCursor())
             {
-                objects.get(layerCursor).remove(0);
+                objects[layerCursor].remove(0);
                 return true;
             }
 
@@ -144,10 +145,31 @@ public class Graphic
         return false;
     }
 
-    public void setObjects(List<List<DrawableObject>> objects)
+    public Bitmap getBitmap(String drawable){
+        acquire();
+        if (!bitmaps.containsKey(drawable))
+        {
+
+            tmpId = context.getResources().getIdentifier(
+                    drawable,
+                    Paths.DRAWABLE.toString(),
+                    context.getPackageName()
+
+            );
+
+            tmpBitmap = BitmapFactory.decodeResource(context.getResources(), tmpId);
+
+            bitmaps.put(drawable, tmpBitmap);
+        }
+
+        mutex.release();
+        return bitmaps.get(drawable);
+    }
+
+    public void setObjects(List<DrawableObject> objects, int layer)
     {
         acquire();
-        this.objects = new ArrayList<>(objects);
+        this.objects[layer] = new ArrayList<>(objects);
         mutex.release();
     }
 }
