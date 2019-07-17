@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 public class ViewInjector extends Handler
 {
     private Object[] obj;
+    private int size;
 
     public ViewInjector(Looper looper){
         super(looper);
@@ -23,9 +24,9 @@ public class ViewInjector extends Handler
         {
             case InjectionTypes.REPLACE:
                 ((ViewGroup) obj[0]).addView((View) obj[1]);
-
-                for(int i = 0; i < ((ViewGroup) obj[0]).indexOfChild((View) obj[1]) - 1; i++)
-                    ((ViewGroup) obj[0]).removeViewAt(i);
+                size = ((ViewGroup) obj[0]).indexOfChild((View) obj[1]) - 1;
+                for(int i = 0; i < size; i++)
+                    ((ViewGroup) obj[0]).removeViewAt(0);
 
                 break;
 
