@@ -9,6 +9,8 @@ import android.os.Message;
 import android.widget.ImageView;
 
 import com.purplestudio.BGL.AppView;
+import com.purplestudio.BGL.Injection.InjectionTypes;
+import com.purplestudio.BGL.Injection.Sender;
 import com.purplestudio.BGL.Models.DrawableObject;
 import com.purplestudio.BGL.Models.Scene;
 import com.purplestudio.BGL.Trigger;
@@ -155,13 +157,10 @@ public class Display extends Sender implements Runnable, Trigger
 
                 graphic.releaseTransaction(this);
 
-                tmpView = new ImageView(context);
-                tmpView.setImageBitmap(tmpBitmap);
+                obj[0] = scene.getSceneImage();
+                obj[1] = tmpBitmap;
 
-                obj[0] = scene.getSceneView();
-                obj[1] = tmpView;
-
-                tmpMsg.what = InjectionTypes.REPLACE;
+                tmpMsg.what = InjectionTypes.REPLACEBITMAP;
                 tmpMsg.obj = obj;
 
                 injector.sendMessage(tmpMsg);

@@ -1,17 +1,19 @@
-package com.purplestudio.BGL.Graphic;
+package com.purplestudio.BGL.Injection;
 
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
-public class ViewInjector extends Handler
+public class Injector extends Handler
 {
     private Object[] obj;
     private int size;
 
-    public ViewInjector(Looper looper){
+    public Injector(Looper looper){
         super(looper);
     }
 
@@ -32,6 +34,10 @@ public class ViewInjector extends Handler
 
             case InjectionTypes.INSERT:
                 ((ViewGroup) obj[0]).addView((View) obj[1]);
+                break;
+
+            case InjectionTypes.REPLACEBITMAP:
+                ((ImageView) obj[0]).setImageBitmap((Bitmap) obj[1]);
                 break;
 
         }

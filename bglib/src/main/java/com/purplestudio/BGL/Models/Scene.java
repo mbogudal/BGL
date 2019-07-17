@@ -3,10 +3,12 @@ package com.purplestudio.BGL.Models;
 import android.content.Context;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.purplestudio.BGL.Errors;
-import com.purplestudio.BGL.Graphic.InjectionTypes;
-import com.purplestudio.BGL.Graphic.Sender;
+import com.purplestudio.BGL.Injection.InjectionTypes;
+import com.purplestudio.BGL.Injection.Sender;
 
 public class Scene extends Sender
 {
@@ -14,6 +16,7 @@ public class Scene extends Sender
     private ConstraintLayout mainView;
     private ConstraintLayout marginsView;
     private ConstraintLayout interfaceView;
+    private ImageView sceneImage;
 
     public Scene(Context context, ConstraintLayout csLayout) throws Exception
     {
@@ -28,15 +31,19 @@ public class Scene extends Sender
         sceneView = new ConstraintLayout(context);
         marginsView = new ConstraintLayout(context);
         interfaceView = new ConstraintLayout(context);
+        sceneImage = new ImageView(context);
 
         setLayoutParams(csLayout, mainView);
         setLayoutParams(csLayout, sceneView);
         setLayoutParams(csLayout, interfaceView);
         setLayoutParams(csLayout, marginsView);
+        setLayoutParams(csLayout, sceneImage);
+
 
         mainView.addView(sceneView);
         mainView.addView(interfaceView);
         mainView.addView(marginsView);
+        sceneView.addView(sceneImage);
 
         arr[0] = csLayout;
         arr[1] = mainView;
@@ -48,7 +55,7 @@ public class Scene extends Sender
 
     }
 
-    private void setLayoutParams(ConstraintLayout parent,ConstraintLayout child){
+    private void setLayoutParams(ConstraintLayout parent, View child){
         child.setLayoutParams(
                 new ConstraintLayout.LayoutParams(
                         parent.getWidth(),
@@ -70,5 +77,10 @@ public class Scene extends Sender
     public ConstraintLayout getInterfaceView()
     {
         return interfaceView;
+    }
+
+    public ImageView getSceneImage()
+    {
+        return sceneImage;
     }
 }
