@@ -144,4 +144,10 @@ public class Graphic
         return false;
     }
 
+    public void setObjects(List<List<DrawableObject>> objects)
+    {
+        acquire();
+        this.objects = new ArrayList<>(objects);
+        mutex.release();
+    }
 }
