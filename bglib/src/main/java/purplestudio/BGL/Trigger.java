@@ -1,4 +1,4 @@
-package com.purplestudio.BGL;
+package purplestudio.BGL;
 
 public interface Trigger {
     void fire();

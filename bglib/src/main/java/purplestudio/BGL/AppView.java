@@ -1,4 +1,4 @@
-package com.purplestudio.BGL;
+package purplestudio.BGL;
 
 public class AppView {
     public int height;

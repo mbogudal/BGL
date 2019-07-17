@@ -1,4 +1,4 @@
-package com.purplestudio.BGL;
+package purplestudio.BGL;
 
 public enum Errors {
     WIDTHSCALE("widthScale is bigger than one"),

@@ -1,12 +1,12 @@
-package com.purplestudio.BGLExample;
+package purplestudio.BGLExample;
 
 import android.graphics.Color;
 
-import com.purplestudio.BGL.AppView;
-import com.purplestudio.BGL.Graphic.Display;
-import com.purplestudio.BGL.Graphic.Graphic;
-import com.purplestudio.BGL.Graphic.GraphicOperations;
-import com.purplestudio.BGL.Models.DrawableObject;
+import purplestudio.BGL.AppView;
+import purplestudio.BGL.Graphic.Display;
+import purplestudio.BGL.Graphic.Graphic;
+import purplestudio.BGL.Graphic.GraphicOperations;
+import purplestudio.BGL.Models.DrawableObject;
 
 import java.util.ArrayList;
 import java.util.Collections;

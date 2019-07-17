@@ -1,4 +1,4 @@
-package com.purplestudio.BGL.Models;
+package purplestudio.BGL.Models;
 
 import android.content.Context;
 import android.os.Message;
@@ -6,9 +6,9 @@ import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.purplestudio.BGL.Errors;
-import com.purplestudio.BGL.Injection.InjectionTypes;
-import com.purplestudio.BGL.Injection.Sender;
+import purplestudio.BGL.Errors;
+import purplestudio.BGL.Injection.InjectionTypes;
+import purplestudio.BGL.Injection.Sender;
 
 public class Scene extends Sender
 {
