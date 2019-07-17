@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.purplestudio.BGL.AppView;
 import com.purplestudio.BGL.Models.DrawableObject;
+import com.purplestudio.BGL.Models.Scene;
 import com.purplestudio.BGL.Trigger;
 
 import java.util.concurrent.Semaphore;
